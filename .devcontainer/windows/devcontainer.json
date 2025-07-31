@@ -1,0 +1,23 @@
+{
+    "name": "windows",
+    "image": "mcr.microsoft.com/windows/servercore:ltsc2022",
+    "features": {
+        "python": "3.12"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python", 
+                "ms-python.vscode-pylance", 
+                "ms-python.black-formatter",
+                "christian-kohler.path-intellisense",
+                "kevinrose.vsc-python-indent",
+                "mechatroner.rainbow-csv",
+                "mohsen1.prettify-json",
+                "ms-python.debugpy",
+                "ms-python.isort"
+            ]
+        }
+    }
+}
+

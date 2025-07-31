@@ -1,0 +1,29 @@
+[project]
+name = "workstation_orchestrator"
+version = "0.1.0"
+description = "Orchestrate the setup of a workstation"
+requires-python = ">=3.12"
+dependencies = [
+    "pyyaml",
+    "pydantic",
+    "colorama>=0.4.6",
+    "requests>=2.32.3",
+    "distro>=1.9.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.4",
+]
+
+[tool.pytest.ini_options]
+pythonpath = [
+    ".",
+    "src/workstation_orchestrator"
+]
+testpaths = [
+    "test"
+]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]

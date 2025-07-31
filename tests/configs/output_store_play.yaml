@@ -1,0 +1,39 @@
+# What OS do you activate this on?
+os:
+  windows: false
+  linux: true
+  mac: false
+  wsl: false
+
+
+# GIT Module - Setup git and repositories
+git:
+  command:
+    get_git_token:
+      commands:
+        - shell: bash
+          execute:
+            - "curl -s https://api.github.com/users/my_org | jq '.token'"
+          saved_output_name: git_token
+      execution_order: "before"
+
+  config:
+    diff_tool: vscode
+    display_name: "Your Name"
+    email: "your@email.ext"
+  repos:
+    my_group_name:
+      enabled: false
+      use_automated_path: true
+      root_path: "~/repos"
+      repo_file_list: "repos_with_token_env.txt" 
+      items:
+        MY-MAIN-TEAM:
+          - git@${git_token}github.com:my_org/team-repo.git
+        SECOND-TEAM:
+          - git@${git_token}github.com:my_org/team-repo-2.git
+    non_automated_group_name:
+      enabled: false
+      items:
+        - url: git@${git_token}github.com:my_org/non-team-repo.git
+          path: "~/git/non-team-repo"

@@ -1,0 +1,197 @@
+# What OS do you activate this on?
+os:
+  windows: true
+  linux: false
+  mac: false
+  wsl: false
+
+# Prepare section
+prepare:
+  download:
+    my_group_name:
+      resources:
+        - url: ""
+          path: ""
+    my_group_name2:
+      resources:
+        - url: ""
+          path: ""
+  merge_yamls:
+    my_group_name:
+      enabled: false
+      yamls:
+        - "path/to/yaml1.yaml"
+        - "path/to/yaml2.yaml"
+    my_group_name2:
+      enabled: false
+      yamls:
+        - "path/to/yaml1.yaml"
+        - "path/to/yaml2.yaml"
+
+# GIT Module - Setup git and repositories
+git:
+  config:
+    diff_tool: vscode
+    display_name: "Your Name"
+    email: "your@email.ext"
+    global:
+      - "--unset-all push.default"
+      - "--unset-all push.autoSetupRemote"
+      - "--unset-all http.sslVerify"
+      - "--unset-all http.sslBackend"
+      - "--unset-all core.longPaths"
+      - "--unset-all core.autocrlf"
+      - "--unset-all init.defaultBranch"
+      - "alias.cm '!git commit --message '"
+      - "alias.cma '!git add --all && git status && git commit --message '"
+    system:
+      all:
+        # Push settings to better handle remote and ssl verification
+        - "--replace-all push.default upstream"
+        - "--replace-all push.autoSetupRemote true"
+        - "--replace-all http.sslVerify true"
+        - "--replace-all core.autocrlf input"
+        - "--replace-all init.defaultBranch main"
+
+
+        # Option 1: Safer, more traditional approach (You're new to Git)
+        #- "--replace-all pull.ff only"            # Only allow fast-forward merges
+        #- "--replace-all merge.autoStash true"    # Auto-stash changes when needed
+
+        # Pull and merge settings to better handle rebase and merge conflicts
+        # OR Option 2: Rebase approach (what I originally suggested) (You're comfortable with Git and want a cleaner commit history)
+        - "--replace-all pull.rebase true"      # Use rebase instead of merge
+        - "--replace-all pull.ff only"          # Fast-forward only when possible
+        - "--replace-all merge.autoStash true"  # Auto-stash changes when merging
+        - "--replace-all rebase.autoStash true" # Auto-stash changes when rebasing
+
+      windows:
+        - "--replace-all http.sslBackend schannel"
+        - "--replace-all core.longPaths true"
+      linux:
+        - "--replace-all http.sslBackend openssl"
+  repos:
+    my_group_name:
+      use_automated_path: true  # If true, the path will be generated based on the url, clone group name (team) and root_path
+      root_path: "~/repos"
+      repo_file_list: "" # If you want to clone a specific list of repos, add the path to the file here
+      items:
+        MY-MAIN-TEAM:
+          - git@github.com:MYUSER/team-repo.git
+        SECOND-TEAM:
+          - git@github.com:MYUSER/team-repo-2.git
+    non_automated_group_name:
+      items:
+        - url: git@github.com:MYUSER/non-team-repo.git
+          path: "~/git/non-team-repo"
+
+# OS Module
+os-settings:
+  language: "en-US"
+  region: "da-DK"
+  fontSize: 14
+  cursorSpeed: 10
+  notifications: false
+  powerProfile: "High performance"
+  timeFormat:
+    shortTime: "HH:mm"
+    longTime: "HH:mm:ss"
+
+# Software Module
+# install and uninstall, based on the package manager, non OS specific are merged with OS specific
+software:
+  package-managers: [apt, brew, choco, winget]
+
+  apt:
+    install:
+      - "curl"
+      - "wget"
+      - "git"
+      - "zsh"
+  brew:
+    install:
+      - "k9s"
+  
+  choco:
+    install:
+      - "git"
+      - name: "openssl"
+        args: "--execution-timeout=7200"
+
+  winget:
+    install:
+      - "git"
+
+command:
+  my_group_name:
+    - shell: "powershell"
+      execute:
+        - "Write-Host 'Hello World'"
+  my_group_name2:
+    - shell: "powershell"
+      execute:
+        - "Write-Host 'Hello World'"
+
+
+# Configure section, here you can configure settings for different software and execute commands or scripts
+configure:
+  vscode:
+    settings: 
+      file: ""
+      content: |
+        {
+          "editor.fontSize": 14,
+          "editor.fontFamily": "Consolas",
+          "editor.fontLigatures": true,
+          "editor.minimap.enabled": false,
+          "editor.renderWhitespace": "all",
+          "editor.rulers": [80, 120],
+          "editor.tabSize": 2,
+          "editor.wordWrap": "on",
+          "files.autoSave": "afterDelay",
+          "files.autoSaveDelay": 1000,
+          "files.autoSaveTimeout": 1000,
+        }
+
+    extensions:
+      install:
+        - github.copilot
+        - github.copilot-chat
+        - github.vscode-github-actions
+        - github.vscode-pull-request-github
+
+  visual_studio:
+    command:
+      my_group_name:
+        - shell: powershell
+          execute: 
+            run: setup.exe
+            args:
+              - "--installPath"
+              - 'C:\Program Files\Visual Studio'
+              - "--add Microsoft.VisualStudio.Workload.NetCoreBuildTools"
+              - "--add Microsoft.VisualStudio.Workload.NetWeb"
+
+
+# OS specific settings 
+# Here is Windows
+# all the above modules are merged with the windows specific settings, or other OS specific settings, and can be used from here
+windows:
+  features:
+    install:
+      - NetFx3
+      - MSMQ-Server
+  powershell-modules:
+    install:
+      - "AzureAD"
+      - "SqlServer"
+      - "SQLPS"
+      - "Az"
+      - "Microsoft.Identity.Client"
+
+  ## Usage of other modules from above in windows specific settings
+  software:
+    choco:
+      install:
+        - "git"
+

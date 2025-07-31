@@ -1,0 +1,141 @@
+# What OS do you activate this on?
+os:
+  windows: false
+  linux: true
+  mac: false
+  wsl: false
+
+# Prepare section
+prepare:
+  download:
+    my_group_name:
+      resources:
+        - url: ""
+          path: ""
+  merge_yamls:
+    my_group_name:
+      enabled: false
+      yamls:
+        - "path/to/yaml1.yaml"
+        - "path/to/yaml2.yaml"
+
+# GIT Module - Setup git and repositories
+git:
+  config:
+    diff-tool: vscode
+    display-name: "Your Name"
+    email: "your@email.ext"
+  repos:
+    my_group_name:
+      use_automated_path: true  # If true, the path will be generated based on the url, clone group name (team) and root_path
+      root_path: "~/repos"
+      repo_file_list: "" # If you want to clone a specific list of repos, add the path to the file here
+      items:
+        MY-MAIN-TEAM:
+          - git@github.com:MYUSER/team-repo.git
+        SECOND-TEAM:
+          - git@github.com:MYUSER/team-repo-2.git
+    non_automated_group_name:
+      items:
+        - url: git@github.com:MYUSER/non-team-repo.git
+          path: "~/git/non-team-repo"
+
+# OS Module
+os-settings:
+  language: "en-US"
+  region: "da-DK"
+  fontSize: 14
+  cursorSpeed: 10
+  notifications: false
+  powerProfile: "High performance"
+  timeFormat:
+    shortTime: "HH:mm"
+    longTime: "HH:mm:ss"
+
+# Software Module
+# install and uninstall, based on the package manager, non OS specific are merged with OS specific
+software:
+  package-managers: [apt, brew, choco, winget]
+
+  apt:
+    install:
+      - "curl"
+      - "wget"
+      - "git"
+      - "zsh"
+  brew:
+    install:
+      - "k9s"
+  
+  choco:
+    install:
+      - "git"
+      - name: "openssl"
+        args: "--execution-timeout=7200"
+
+  winget:
+    install:
+      - "git"
+
+command:
+  my_group_name:
+    - shell: "powershell"
+      execute:
+        - "Write-Host 'Hello World'"
+
+
+# Configure section, here you can configure settings for different software and execute commands or scripts
+configure:
+  vscode:
+    settings: 
+      file: ""
+      content: |
+        {
+          "editor.tabSize": 2,
+          "editor.wordWrap": "on",
+          "files.autoSave": "afterDelay",
+          "files.autoSaveDelay": 1000,
+          "files.autoSaveTimeout": 1000,
+        }
+
+    extensions:
+      install:
+        - github.copilot
+        - github.copilot-chat
+        - github.vscode-github-actions
+        - github.vscode-pull-request-github
+
+  visual-studio:
+    command:
+      - shell: powershell
+        execute: 
+          - run: setup.exe
+            args:
+              - "--installPath"
+              - 'C:\Program Files\Visual Studio'
+              - "--add Microsoft.VisualStudio.Workload.NetCoreBuildTools"
+              - "--add Microsoft.VisualStudio.Workload.NetWeb"
+
+
+# OS specific settings 
+# Here is Windows
+# all the above modules are merged with the windows specific settings, or other OS specific settings, and can be used from here
+windows:
+  features:
+    install:
+      - NetFx3
+      - MSMQ-Server
+  powershell-modules:
+    install:
+      - "AzureAD"
+      - "SqlServer"
+      - "SQLPS"
+      - "Az"
+      - "Microsoft.Identity.Client"
+
+  ## Usage of other modules from above in windows specific settings
+  software:
+    choco:
+      install:
+        - "git"
+

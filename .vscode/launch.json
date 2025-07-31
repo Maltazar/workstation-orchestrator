@@ -1,0 +1,105 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Linux",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/workstation_orchestrator/main.py",
+            "cwd": "${workspaceFolder}/src/workstation_orchestrator",
+            "console": "integratedTerminal",
+            "args": [
+                "--os",
+                "linux",
+                "--config",
+                "${workspaceFolder}/tests/configs/config.yaml"
+            ],
+            "env": {
+              "LOG_LEVEL": "INFO"
+            }
+        },
+        {
+            "name": "Python Linux wip-debug",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/workstation_orchestrator/main.py",
+            "cwd": "${workspaceFolder}/src/workstation_orchestrator",
+            "console": "integratedTerminal",
+            "args": [
+                // "--os",
+                // "linux",
+                "--config",
+                "${workspaceFolder}/tests/configs/config.yaml"
+            ],
+            "env": {
+              "LOG_LEVEL": "INFO"
+            }
+        },
+        {
+            "name": "Python Linux devcontainer",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/workstation_orchestrator/main.py",
+            "cwd": "${workspaceFolder}/src/workstation_orchestrator",
+            "console": "integratedTerminal",
+            "args": [
+                // "--os",
+                // "linux",
+                "--config",
+                "${workspaceFolder}/tests/configs/config_devcontainer.yaml"
+            ],
+            "env": {
+              "LOG_LEVEL": "DEBUG"
+            }
+        },
+        {
+            "name": "Python Linux fedora devcontainer",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/workstation_orchestrator/main.py",
+            "cwd": "${workspaceFolder}/src/workstation_orchestrator",
+            "console": "integratedTerminal",
+            "args": [
+                "--config",
+                "${env:CONFIG_URL}",
+                "--insecure"
+            ],
+            "env": {
+              "LOG_LEVEL": "DEBUG"
+            }
+        },
+        {
+            "name": "Python Linux fedora devcontainer multiline",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/workstation_orchestrator/main.py",
+            "cwd": "${workspaceFolder}/src/workstation_orchestrator",
+            "console": "integratedTerminal",
+            "args": [
+                "--config",
+                "${workspaceFolder}/tests/configs/config-multiline.yaml"
+            ],
+            "env": {
+              "LOG_LEVEL": "DEBUG"
+            }
+        },
+        {
+            "name": "Python Windows",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/workstation_orchestrator/main.py",
+            "cwd": "${workspaceFolder}/src/workstation_orchestrator",
+            "console": "integratedTerminal",
+            "args": [
+                "--os",
+                "windows"
+            ],
+            "env": {
+              "LOG_LEVEL": "DEBUG"
+            }
+        }
+    ]
+}

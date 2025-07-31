@@ -1,0 +1,22 @@
+# What OS do you activate this on?
+os:
+  windows: false
+  linux: true
+  mac: false
+  wsl: false
+
+# Prepare section
+prepare:
+  merge_yamls:
+    my_team:
+      enabled: true
+      yamls:
+        - "tests/configs/config_team.yaml"
+
+linux:
+  prepare:
+    merge_yamls:
+      my_team:
+        enabled: true
+        yamls:
+          - "tests/configs/config_team_linux.yaml"

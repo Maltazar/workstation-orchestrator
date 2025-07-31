@@ -1,0 +1,24 @@
+{
+    "name": "fedora",
+    "image": "fedora:latest",
+    "features": {
+        "python": "3.12"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python", 
+                "ms-python.vscode-pylance", 
+                "ms-python.black-formatter",
+                "christian-kohler.path-intellisense",
+                "kevinrose.vsc-python-indent",
+                "mechatroner.rainbow-csv",
+                "mohsen1.prettify-json",
+                "ms-python.debugpy",
+                "ms-python.isort"
+            ]
+        }
+    },
+    "postCreateCommand": "dnf -y update && dnf clean all && dnf -y install python-pip && dnf clean all"
+}
+

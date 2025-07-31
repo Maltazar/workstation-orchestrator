@@ -1,0 +1,23 @@
+{
+    "name": "alpine",
+    "image": "python:3.12-alpine",
+    "features": {
+        "python": "3.12"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python", 
+                "ms-python.vscode-pylance", 
+                "ms-python.black-formatter",
+                "christian-kohler.path-intellisense",
+                "kevinrose.vsc-python-indent",
+                "mechatroner.rainbow-csv",
+                "mohsen1.prettify-json",
+                "ms-python.debugpy",
+                "ms-python.isort"
+            ]
+        }
+    },
+    "postCreateCommand": "apk update && apk add --no-cache py3-pip"
+} 

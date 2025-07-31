@@ -1,0 +1,27 @@
+# What OS do you activate this on?
+os:
+  windows: false
+  linux: true
+  mac: false
+  wsl: false
+
+
+command:
+  my_group_name_linux:
+    - shell: bash
+      execute:
+        - "echo 'Hello World from merged yaml linux'"
+  my_group_name_linux_2:
+    - shell: bash
+      execute:
+        - run: "echo 'Hello World to store'"
+          saved_output_name: processes
+    - shell: bash
+      execute:
+        - "echo 'from store - ${processes}'" 
+  my_group_name_linux_3:
+    - shell: bash
+      execute:
+        - run: "echo"
+          args:
+            - "Hello World from merged yaml linux 3 command"

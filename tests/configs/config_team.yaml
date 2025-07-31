@@ -1,0 +1,47 @@
+# What OS do you activate this on?
+os:
+  windows: false
+  linux: true
+  mac: false
+  wsl: false
+
+
+# GIT Module - Setup git and repositories
+git:
+  config:
+    diff_tool: vscode
+    display_name: "Your Name"
+    email: "your@email.ext"
+  repos:
+    my_group_name:
+      enabled: false
+      use_automated_path: true  # If true, the path will be generated based on the url, clone group name (team) and root_path
+      root_path: "~/repos"
+      repo_file_list: "" # If you want to clone a specific list of repos, add the path to the file here
+      items:
+        MY-MAIN-TEAM:
+          - git@github.com:MYUSER/team-repo.git
+        SECOND-TEAM:
+          - git@github.com:MYUSER/team-repo-2.git
+    non_automated_group_name:
+      enabled: false
+      items:
+        - url: git@github.com:MYUSER/non-team-repo.git
+          path: "~/git/non-team-repo"
+
+linux:
+  command:
+    my_group_name:
+      - shell: "bash"
+        execute:
+          - "echo 'Hello World from merged yaml'"
+    my_group_name2:
+      - shell: "bash"
+        execute:
+          - "echo 'Hello World from merged yaml 2 command'"
+    my_group_name3:
+      - shell: "bash"
+        execute:
+          - run: "echo"
+            args:
+              - "Hello World from merged yaml 3 command"
